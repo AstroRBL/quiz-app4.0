@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
       timeInSeconds = 0;
       timerElement.textContent = "00:00";
       userInput.value = "";
-      userInput.placeholder = "Type in your answer";
+      userInput.placeholder = "Pick your answer";
       userInput.classList.remove("fade-out");
       correctAnswersCount = 0;
       incorrectAnswersCount = 0;

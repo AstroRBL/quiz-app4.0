@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div class="start-screen">
+      <div class="quiz-control">
+        <h1>Quiz App</h1>
+        <select id="difficultySelect">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <select id="typeSelect">
+          <option value="multiple">Multiple</option>
+          <option value="boolean">True/False</option>
+        </select>
+        <select id="categorySelect">
+          <option value="9">General Knowledge</option>
+          <option value="10">Books</option>
+          <option value="17">Science and Nature</option>
+          <option value="11">Film</option>
+          <option value="12">Music</option>
+          <option value="13">Musicals and Theatres</option>
+          <option value="14">Television</option>
+          <option value="15">Video Games</option>
+          <option value="16">Board Games</option>
+          <option value="18">Science: Computers</option>
+          <option value="19">Science: Mathematics</option>
+          <option value="20">Mythology</option>
+          <option value="21">Sports</option>
+          <option value="22">Geography</option>
+          <option value="23">History</option>
+          <option value="24">Politics</option>
+          <option value="25">Art</option>
+          <option value="26">Celebrities</option>
+          <option value="27">Animals</option>
+          <option value="28">Vehicles</option>
+          <option value="29">Comics</option>
+          <option value="30">Science: Gadgets</option>
+          <option value="31">Japanese Anime and Manga</option>
+          <option value="32">Cartoon and Animations</option>
+        </select>
+        <button id="startButton">Go!</button>
+      </div>
+    </div>
+    <div class="quiz-container">
+      <div class="progress-bar"></div>
+      <div class="top-bar">
+        <button id="goBack"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="question-wrapper">
+          <p id="question">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Consequuntur qui, excepturi culpa id ab officia, dolorum cupiditate
+            quo sit quos pariatur earum non at sunt a. Culpa odio blanditiis
+            animi.
+          </p>
+          <div class="span-strings">
+            <span id="questionCounter">-- / --</span>
+            <span id="timer">-- : --</span>
+          </div>
+        </div>
+        <button id="restartQuiz">
+          <i class="fa-solid fa-arrows-rotate"></i>
+        </button>
+      </div>
+      <div class="user-answer">
+        <input type="text" id="userInput" placeholder="Type in you answer" />
+        <div class="option-buttons">
+          <button class="option-button">Op1</button>
+          <button class="option-button">Op1</button>
+          <button class="option-button">Op1</button>
+          <button class="option-button">Op1</button>
+        </div>
+        <button id="navButton">Check Answer</button>
+      </div>
+    </div>
+    <div class="end-screen">
+      <h1>Quiz Over!</h1>
+      <div class="end-results">
+        <div class="span-strings">
+          <span id="timetaken">-- : --</span>
+          <span id="questionsAnswered">-- / --</span>
+          <span id="correctAnswers">-- / --</span>
+          <span id="incorrectAnswers">-- / --</span>
+        </div>
+        <div class="end-screen-buttons">
+          <button id="replayButton">Replay</button>
+          <button id="changeQuiz">Change Quiz</button>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

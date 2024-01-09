@@ -169,7 +169,7 @@ body {
   border: 0;
   border-radius: 20px;
   padding: 20px 10px;
-  background-color: rgb(35, 35, 71);
+  background-color: var(--darker);
   opacity: 0.8;
   width: 100%;
   cursor: pointer;
@@ -240,7 +240,7 @@ body {
   border: 0;
   border-radius: 20px;
   padding: 20px 10px;
-  background-color: rgb(35, 35, 71);
+  background-color: var(--progress-bar-color);
   opacity: 0.8;
   width: 100%;
   cursor: pointer;

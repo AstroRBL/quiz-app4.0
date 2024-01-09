@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
       timeInSeconds = 0;
       timerElement.textContent = "00:00";
       userInput.value = "";
-      userInput.placeholder = "Type in your answer";
+      userInput.placeholder = "Pick your answer";
       userInput.classList.remove("fade-out");
       correctAnswersCount = 0;
       incorrectAnswersCount = 0;
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   restartQuizButton.addEventListener("click", function () {
     stopTimer();
-    userInput.placeholder = "Type in your answer";
+    userInput.placeholder = "Pick your answer";
     userInput.value = "";
     userInput.classList.remove("fade-out");
 
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
       userInput.value = "";
 
       setTimeout(function () {
-        userInput.placeholder = "Type in your answer";
+        userInput.placeholder = "Pick your answer";
       }, 4000);
 
       const progressBarWidth = ((questionIndex + 1) / triviaData.length) * 100;
@@ -338,7 +338,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputField = document.createElement("input");
     inputField.setAttribute("type", "text");
     inputField.setAttribute("id", "userInput");
-    inputField.setAttribute("placeholder", "Type in your answer");
+    inputField.setAttribute("placeholder", "Pick your answer");
     optionsContainer.appendChild(inputField);
 
     const submitButton = document.createElement("button");

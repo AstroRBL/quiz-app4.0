@@ -15,399 +15,439 @@
   <body>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-* {
-  font-family: "Poppins", sans-serif;
-}
-body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  border: 0;
-  box-sizing: border-box;
-  background-color: var(--darker);
-}
-:root {
-  --darker: #2e3440;
-  --dark: #3b4252;
-  --lighter: #434c5e;
-  --light: #4c566a;
-  --font: #fff;
-  --start-button-color: rgb(0, 119, 255);
-  --check-answer-button: rgb(92, 99, 134);
-  --progress-bar-color: rgb(99, 99, 121);
-  --correct-color: rgb(208, 255, 218);
-  --correct-font: darkgreen;
-  --incorrect-color: rgb(253, 212, 212);
-  --incorrect-font: red;
-  --active-option-button: rgb(58, 58, 83);
-}
-.start-screen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--darker);
-  color: var(--font);
-  z-index: 100;
-}
-.quiz-control {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-  width: 60%;
-  height: auto;
-  background-color: var(--dark);
-  padding: 10px;
-  border-radius: 10px;
-  box-sizing: border-box;
-}
-.quiz-control h1 {
-  text-align: center;
-  padding: 10px;
-  background-color: var(--lighter);
-  font-size: 50px;
-  border-radius: 10px;
-  box-sizing: border-box;
-}
-#questionNumber{
-  font-size: 25px;
-  background-color: var(--lighter);
-  color: var(--font);
-  outline: 0;
-  border: 0;
-  border-radius: 20px;
-  padding: 20px 10px;
-  width: 99%;
-}
-.quiz-control select {
-  font-size: 25px;
-  background-color: var(--lighter);
-  color: var(--font);
-  outline: 0;
-  border: 0;
-  border-radius: 20px;
-  padding: 20px 10px;
-  width: 100%;
-}
-.quiz-control button {
-  color: var(--font);
-  background-color: var(--start-button-color);
-  outline: 0;
-  border: 0;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 20px;
-  padding: 20px 0;
-  width: 100%;
-  opacity: 0.6;
-  transition-duration: 0.3s;
-}
-.quiz-control button:hover {
-  opacity: 0.8;
-}
-.quiz-control button:active {
-  opacity: 1;
-}
-.quiz-container {
-  position: relative;
-  margin: 10% auto;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  background-color: var(--dark);
-  width: 60%;
-  padding: 10px;
-  border-radius: 10px;
-  box-sizing: border-box;
-}
-.progress-bar {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 10%;
-  height: 10px;
-  border-radius: 10px;
-  background-color: var(--progress-bar-color);
-  transition: width 0.3s ease, background-color 1s ease; /* Combine transitions */
-}
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 30px;
-  color: var(--font);
-  text-align: center;
-}
-.question-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.span-strings {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 5px;
-  transition-duration: 0.2s;
-}
-#questionCounter {
-  width: 40px;
-  max-width: 60px;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: var(--darker);
-}
-#timer {
-  width: 40px;
-  max-width: 60px;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: var(--darker);
-}
-.option-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-.option-buttons button {
-  font-size: 20px;
-  color: var(--font);
-  outline: 0;
-  border: 0;
-  border-radius: 20px;
-  padding: 20px 10px;
-  background-color: var(--darker);
-  opacity: 0.8;
-  width: 100%;
-  cursor: pointer;
-  transition-duration: 0.2s;
-}
-.option-buttons button:hover {
-  box-shadow: 0 0 0 3px var(--darker);
-}
-.option-buttons button:active {
-  box-shadow: 0 0 0 0 rgb(35, 43, 61);
-}
-.option-buttons button.active {
-  background-color: rgb(27, 27, 46);
-  box-shadow: 0 0 0 5px rgb(27, 27, 46);
-}
-.top-bar button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  padding: 25px;
-  background-color: var(--darker);
-  color: #fff;
-  border: 0;
-  outline: 0;
-  border-radius: 50%;
-  opacity: 0.7;
-  cursor: pointer;
-  transition-duration: 0.3s;
-}
-.top-bar button:hover {
-  opacity: 0.8;
-}
-.top-bar button:active {
-  opacity: 1;
-}
-.user-answer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-}
-.user-answer input {
-  font-size: 20px;
-  border-radius: 20px;
-  width: 100%;
-  padding: 20px 10px;
-  background-color: var(--darker);
-  color: var(--font);
-  border: 0;
-  outline: 0;
-  opacity: 0.8;
-  text-align: center;
-  box-sizing: border-box;
-  transition-duration: 0.2s;
-}
-.user-answer input:active {
-  opacity: 1;
-  box-shadow: 0 0 0 3px rgb(27, 27, 51);
-}
-#navButton {
-  font-size: 20px;
-  color: var(--font);
-  outline: 0;
-  border: 0;
-  border-radius: 20px;
-  padding: 20px 10px;
-  background-color: var(--progress-bar-color);
-  opacity: 0.8;
-  width: 100%;
-  cursor: pointer;
-  transition-duration: 0.2s;
-}
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border: 0;
+        box-sizing: border-box;
+        background-color: var(--darker);
+      }
+      :root {
+        --darker: #2e3440;
+        --dark: #3b4252;
+        --lighter: #434c5e;
+        --light: #4c566a;
+        --font: #fff;
+        --start-button-color: rgb(0, 76, 255);
+        --check-answer-button: rgb(92, 99, 134);
+        --progress-bar-color: rgb(99, 99, 121);
+        --correct-color: rgb(208, 255, 218);
+        --correct-font: darkgreen;
+        --incorrect-color: rgb(253, 212, 212);
+        --incorrect-font: red;
+        --active-option-button: rgb(58, 58, 83);
+      }
+      .start-screen {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--darker);
+        color: var(--font);
+        z-index: 100;
+        box-sizing: border-box;
+      }
+      .quiz-control {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+        position: relative;
+        width: 60%;
+        height: 90%;
+        background-color: var(--dark);
+        padding: 20px 20px;
+        border-radius: 10px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+      }
+      .quiz-control::-webkit-scrollbar {
+        display: none;
+      }
+      .quiz-control h1 {
+        position: relative;
+        top: 20px;
+        text-align: center;
+        padding: 10px;
+        background-color: var(--lighter);
+        font-size: 50px;
+        border-radius: 10px;
+        box-sizing: border-box;
+      }
+      #timeInput {
+        position: relative;
+        font-size: 25px;
+        background-color: var(--lighter);
+        color: var(--font);
+        outline: 0;
+        border: 0;
+        border-radius: 20px;
+        padding: 20px 10px;
+        width: 99%;
+        transition-duration: 0.3s;
+      }
+      #questionNumber {
+        position: relative;
+        font-size: 25px;
+        background-color: var(--lighter);
+        color: var(--font);
+        outline: 0;
+        border: 0;
+        border-radius: 20px;
+        padding: 20px 10px;
+        width: 99%;
+        transition-duration: 0.3s;
+      }
+      #timeInput::placeholder,
+      #questionNumber::placeholder {
+        color: #b5b5bc;
+      }
+      .quiz-control select {
+        position: relative;
+        font-size: 25px;
+        background-color: var(--lighter);
+        color: var(--font);
+        outline: 0;
+        border: 0;
+        border-radius: 20px;
+        padding: 20px 10px;
+        width: 100%;
+      }
+      .quiz-control button {
+        position: relative;
+        color: var(--font);
+        background-color: var(--start-button-color);
+        outline: 0;
+        border: 0;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 20px;
+        padding: 20px 0;
+        width: 100%;
+        opacity: 0.6;
+        transition-duration: 0.3s;
+      }
+      .quiz-control button:hover {
+        opacity: 0.8;
+      }
+      .quiz-control button:active {
+        opacity: 1;
+      }
+      .quiz-container {
+        position: relative;
+        margin: 10% auto;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        background-color: var(--dark);
+        width: 60%;
+        padding: 10px;
+        border-radius: 10px;
+        box-sizing: border-box;
+      }
+      .progress-bar {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10%;
+        height: 10px;
+        border-radius: 10px;
+        background-color: var(--progress-bar-color);
+        transition: width 0.3s ease, background-color 1s ease; /* Combine transitions */
+      }
+      .top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 30px;
+        color: var(--font);
+        text-align: center;
+      }
+      .question-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .span-strings {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 5px;
+        transition-duration: 0.2s;
+      }
+      #questionCounter {
+        width: 40px;
+        max-width: 60px;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: var(--darker);
+      }
+      #timer {
+        width: 40px;
+        max-width: 60px;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: var(--darker);
+      }
+      .option-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+      .option-buttons button {
+        font-size: 20px;
+        color: var(--font);
+        outline: 0;
+        border: 0;
+        border-radius: 20px;
+        padding: 20px 10px;
+        background-color: var(--darker);
+        opacity: 0.8;
+        width: 100%;
+        cursor: pointer;
+        transition-duration: 0.2s;
+      }
+      .option-buttons button:hover {
+        box-shadow: 0 0 0 3px var(--darker);
+      }
+      .option-buttons button:active {
+        box-shadow: 0 0 0 0 rgb(35, 43, 61);
+      }
+      .option-buttons button.active {
+        background-color: rgb(27, 27, 46);
+        box-shadow: 0 0 0 5px rgb(27, 27, 46);
+      }
+      .top-bar button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        padding: 25px;
+        background-color: var(--darker);
+        color: #fff;
+        border: 0;
+        outline: 0;
+        border-radius: 50%;
+        opacity: 0.7;
+        cursor: pointer;
+        transition-duration: 0.3s;
+      }
+      .top-bar button:hover {
+        opacity: 0.8;
+      }
+      .top-bar button:active {
+        opacity: 1;
+      }
+      .user-answer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+      }
+      .user-answer input {
+        font-size: 20px;
+        border-radius: 20px;
+        width: 100%;
+        padding: 20px 10px;
+        background-color: var(--darker);
+        color: var(--font);
+        border: 0;
+        outline: 0;
+        opacity: 0.8;
+        text-align: center;
+        box-sizing: border-box;
+        transition-duration: 0.2s;
+      }
+      .user-answer input:active {
+        opacity: 1;
+        box-shadow: 0 0 0 3px rgb(27, 27, 51);
+      }
+      #navButton {
+        font-size: 20px;
+        color: var(--font);
+        outline: 0;
+        border: 0;
+        border-radius: 20px;
+        padding: 20px 10px;
+        background-color: var(--progress-bar-color);
+        opacity: 0.8;
+        width: 100%;
+        cursor: pointer;
+        transition-duration: 0.2s;
+      }
 
-#navButton:hover {
-  box-shadow: 0 0 0 3px var(--darker);
-}
-#navButton:active {
-  opacity: 1;
-  box-shadow: 0 0 0 5px rgb(35, 43, 61);
-}
-.end-screen {
-  position: relative;
-  margin: 10% auto;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background-color: var(--dark);
-  width: 60%;
-  padding: 10px;
-  border-radius: 10px;
-  box-sizing: border-box;
-  color: var(--font);
-}
-.end-results {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-.end-screen h1 {
-  text-align: center;
-  padding: 10px;
-  background-color: var(--lighter);
-  font-size: 50px;
-  border-radius: 10px;
-  color: var(--font);
-  box-sizing: border-box;
-}
-#timetaken {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  max-width: 70px;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: var(--darker);
-}
-#questionsAnswered {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  max-width: 60px;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: var(--darker);
-}
-#correctAnswers {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  width: 40px;
-  max-width: 60px;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: var(--correct-color);
-  color: var(--correct-font);
-  cursor: pointer;
-}
-#incorrectAnswers {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  width: 40px;
-  max-width: 60px;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: var(--incorrect-color);
-  color: var(--incorrect-font);
-  cursor: pointer;
-}
-.end-screen-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-.end-screen-buttons button {
-  color: var(--font);
-  background-color: var(--start-button-color);
-  outline: 0;
-  border: 0;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 20px;
-  padding: 20px 0;
-  width: 100%;
-  opacity: 0.6;
-  transition-duration: 0.3s;
-}
-.end-screen-buttons button:hover {
-  opacity: 0.8;
-}
-.end-screen-buttons button:active {
-  opacity: 1;
-}
-.start-label{
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 5px;
-  flex-direction: row;
-  font-size: 1.2em;
-  background-color: transparent;
-  width: 98%;
-}
-
+      #navButton:hover {
+        box-shadow: 0 0 0 3px var(--darker);
+      }
+      #navButton:active {
+        opacity: 1;
+        box-shadow: 0 0 0 5px rgb(35, 43, 61);
+      }
+      .end-screen {
+        position: relative;
+        margin: 10% auto;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: var(--dark);
+        width: 60%;
+        padding: 10px;
+        border-radius: 10px;
+        box-sizing: border-box;
+        color: var(--font);
+      }
+      .end-results {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+      .end-screen h1 {
+        text-align: center;
+        padding: 10px;
+        background-color: var(--lighter);
+        font-size: 50px;
+        border-radius: 10px;
+        color: var(--font);
+        box-sizing: border-box;
+      }
+      #timetaken {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        max-width: 70px;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: var(--darker);
+      }
+      #questionsAnswered {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        max-width: 60px;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: var(--darker);
+      }
+      #correctAnswers {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 40px;
+        max-width: 60px;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: var(--correct-color);
+        color: var(--correct-font);
+        cursor: pointer;
+      }
+      #incorrectAnswers {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 40px;
+        max-width: 60px;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: var(--incorrect-color);
+        color: var(--incorrect-font);
+        cursor: pointer;
+      }
+      .end-screen-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+      .end-screen-buttons button {
+        color: var(--font);
+        background-color: var(--start-button-color);
+        outline: 0;
+        border: 0;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 20px;
+        padding: 20px 0;
+        width: 100%;
+        opacity: 0.6;
+        transition-duration: 0.3s;
+      }
+      .end-screen-buttons button:hover {
+        opacity: 0.8;
+      }
+      .end-screen-buttons button:active {
+        opacity: 1;
+      }
+      .start-label {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 5px;
+        flex-direction: row;
+        font-size: 1.2em;
+        background-color: transparent;
+        width: 98%;
+      }
     </style>
     <div class="start-screen">
       <div class="quiz-control">
         <h1>Quiz App</h1>
-        <label class="start-label"><i class="fa-solid fa-question"></i>Number of questions:</label>
-        <input type="text" id="questionNumber" placeholder="Choose how much questions you want to answer(Max 50)">
+        <label class="start-label"
+          ><i class="fa-solid fa-question"></i>Amount of time:</label
+        >
+        <input
+          type="text"
+          id="timeInput"
+          placeholder="Please type in a number or [forever] for infinite time(60min MAX)"
+        />
+        <label class="start-label"
+          ><i class="fa-solid fa-question"></i>Number of questions:</label
+        >
+        <input
+          type="text"
+          id="questionNumber"
+          placeholder="Choose how much questions you want to answer(Max 50)"
+        />
         <script>
-         const input = document.getElementById("questionNumber");
+          const input = document.getElementById("questionNumber");
 
           input.value = 10;
 
           input.addEventListener("input", function (e) {
-            const val = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+            const val = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
             e.target.value = val; // Update the input value
 
             const parsedValue = parseInt(val);
@@ -417,25 +457,27 @@ body {
               input.value = 50; // Reset to 50 if the input is above 50
             }
           });
-          
-
-
-
         </script>
-        <label class="start-label"><i class="fa-solid fa-ranking-star"></i>Select Difficulty:</label>
+        <label class="start-label"
+          ><i class="fa-solid fa-ranking-star"></i>Select Difficulty:</label
+        >
         <select id="difficultySelect">
           <option value="any">Any</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
-        <label class="start-label"><i class="fa-solid fa-filter"></i>Select Type:</label>
+        <label class="start-label"
+          ><i class="fa-solid fa-filter"></i>Select Type:</label
+        >
         <select id="typeSelect">
           <option value="any">Any</option>
           <option value="multiple">Multiple</option>
           <option value="boolean">True/False</option>
         </select>
-        <label class="start-label"><i class="fa-solid fa-arrow-down-1-9"></i>Select Category:</label>
+        <label class="start-label"
+          ><i class="fa-solid fa-arrow-down-1-9"></i>Select Category:</label
+        >
         <select id="categorySelect">
           <option value="any">Any</option>
           <option value="9">General Knowledge</option>
@@ -487,7 +529,12 @@ body {
         </button>
       </div>
       <div class="user-answer">
-        <input type="text" id="userInput" placeholder="Pick your answer" readonly/>
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Pick your answer"
+          readonly
+        />
         <div class="option-buttons">
           <button class="option-button">Op1</button>
           <button class="option-button">Op1</button>
@@ -498,7 +545,7 @@ body {
       </div>
     </div>
     <div class="end-screen">
-      <h1>Quiz Over!</h1>
+      <h1 id="endTitle">Quiz Over!</h1>
       <div class="end-results">
         <div class="span-strings">
           <span id="timetaken">-- : --</span>
@@ -514,420 +561,493 @@ body {
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-  const startScreen = document.querySelector(".start-screen");
-  const quizContainer = document.querySelector(".quiz-container");
-  const startButton = document.getElementById("startButton");
-  const categorySelect = document.getElementById("categorySelect");
-  const difficultySelect = document.getElementById("difficultySelect");
-  const typeSelect = document.getElementById("typeSelect"); // Added typeSelect
-  const userInput = document.getElementById("userInput");
-  const checkAnswerButton = document.getElementById("navButton");
-  const goBackButton = document.getElementById("goBack");
-  const restartQuizButton = document.getElementById("restartQuiz");
-  const timerElement = document.getElementById("timer");
-  const questionInput = document.getElementById("questionNumber");
+        const startScreen = document.querySelector(".start-screen");
+        const quizContainer = document.querySelector(".quiz-container");
+        const startButton = document.getElementById("startButton");
+        const categorySelect = document.getElementById("categorySelect");
+        const difficultySelect = document.getElementById("difficultySelect");
+        const typeSelect = document.getElementById("typeSelect"); // Added typeSelect
+        const userInput = document.getElementById("userInput");
+        const checkAnswerButton = document.getElementById("navButton");
+        const goBackButton = document.getElementById("goBack");
+        const restartQuizButton = document.getElementById("restartQuiz");
+        const timerElement = document.getElementById("timer");
+        const questionInput = document.getElementById("questionNumber");
+        const timeInput = document.getElementById("timeInput");
 
-  
+        let correctAnswersCount = 0;
+        let incorrectAnswersCount = 0;
+        let currentQuestionIndex = 0;
+        let triviaData = [];
+        let timer;
+        let timeInSeconds = 0;
+        let selectedType = "";
+        let selectedAnswer = "";
 
+        timeInput.addEventListener("input", function (e) {
+          const val = e.target.value.trim().toLowerCase();
 
-  let correctAnswersCount = 0;
-  let incorrectAnswersCount = 0;
-  let currentQuestionIndex = 0;
-  let triviaData = [];
-  let timer;
-  let timeInSeconds = 0;
-  let selectedType = ""; // Added selectedType variable
-  let selectedAnswer = ""; // Variable to store the user's selected answer
-
-  function startTimer() {
-    timer = setInterval(function () {
-      timeInSeconds++;
-      const minutes = Math.floor(timeInSeconds / 60);
-      const seconds = timeInSeconds % 60;
-      timerElement.textContent = `${minutes}:${
-        seconds < 10 ? "0" : ""
-      }${seconds}`;
-    }, 1000);
-  }
-
-  function stopTimer() {
-    clearInterval(timer);
-  }
-
-  startButton.addEventListener("click", function () {
-    const selectedCategory = categorySelect.value;
-    const selectedDifficulty = difficultySelect.value;
-    const numberOfSelectedQuestions = questionInput.value;
-    selectedType = typeSelect.value.toLowerCase(); // Convert to lowercase
-
-    fetchTrivia(selectedCategory, selectedDifficulty, selectedType, numberOfSelectedQuestions, )
-      .then((trivia) => {
-        startScreen.style.display = "none";
-        quizContainer.style.display = "flex";
-        triviaData = trivia;
-        displayQuestion(currentQuestionIndex);
-        startTimer();
-      })
-      .catch((error) => {
-        console.error("Error fetching trivia:", error);
-      });
-      if(questionInput.value == ""){
-        alert("Please specify a question Number")
-      }
-  });
-
-  checkAnswerButton.addEventListener("click", function () {
-    const progressBar = document.querySelector(".progress-bar");
-
-    // Check if the user has provided an answer
-    if (!selectedAnswer && selectedType !== "type") {
-      alert("Please select or type an answer before proceeding.");
-      return; // Stop the function execution if no answer is provided
-    }
-
-    const correctAnswer =
-      decodeURIComponent(triviaData[currentQuestionIndex].correct_answer).toLowerCase();
-
-    if (correctAnswer.includes(selectedAnswer)) {
-      userInput.placeholder = `Correct! The answer was: ${decodeURIComponent(
-        correctAnswer
-      )}`;
-      correctAnswersCount++;
-      progressBar.style.backgroundColor = "rgba(168, 255, 156, 0.7)"; // Change progress bar color to green for correct answer with some transparency
-    } else {
-      userInput.placeholder = `Wrong! The correct answer is: ${decodeURIComponent(
-        correctAnswer
-      )}. Your answer was: ${selectedAnswer}`;
-      incorrectAnswersCount++;
-      progressBar.style.backgroundColor = "rgba(255, 156, 156, 0.7)"; // Change progress bar color to red for incorrect answer with some transparency
-    }
-
-    // Allow the transition to happen by adding a class
-    progressBar.classList.add("fade-background-color");
-
-    // Remove the class and set the background color after the transition is complete
-    setTimeout(function () {
-      progressBar.classList.remove("fade-background-color");
-      progressBar.style.backgroundColor = "var(--progress-bar-color)"; // Set it back to the original color
-    }, 1000);
-
-    currentQuestionIndex++;
-    selectedAnswer = ""; // Reset the selected answer
-    const selectedButton = document.querySelector(".option-button.selected");
-    if (selectedButton) {
-      selectedButton.classList.remove("selected");
-    }
-
-    // Disable the checkAnswerButton until the user provides a new answer
-    checkAnswerButton.disabled = true;
-
-    // Display the results immediately
-    displayResults();
-
-    // Introduce a delay before showing the next question or end screen
-    if (currentQuestionIndex < triviaData.length) {
-      displayQuestionWithDelay(currentQuestionIndex, 500); // Adjust the delay time as needed
-    } else {
-      stopTimer();
-      displayEndScreenWithDelay(700); // Adjust the delay time as needed
-    }
-  });
-
-  function displayResults() {
-    // Display results logic here
-    // You can use the same logic as in the original checkAnswerButton event listener
-    // to immediately update the UI with correct and incorrect answers
-  }
-
-  function displayQuestionWithDelay(questionIndex, delay) {
-    setTimeout(function () {
-      displayQuestion(questionIndex);
-    }, delay);
-  }
-
-  function displayEndScreenWithDelay(delay) {
-    setTimeout(function () {
-      displayEndScreen();
-    }, delay);
-  }
-
-  function displayQuestionWithDelay(questionIndex, delay) {
-    setTimeout(function () {
-      displayQuestion(questionIndex);
-    }, delay);
-  }
-
-  function displayEndScreenWithDelay(delay) {
-    setTimeout(function () {
-      displayEndScreen();
-    }, delay);
-  }
-
-  function displayEndScreen() {
-    quizContainer.style.display = "none";
-    const endScreen = document.querySelector(".end-screen");
-    const timeTakenElement = document.getElementById("timetaken");
-    const questionsAnsweredElement =
-      document.getElementById("questionsAnswered");
-    const correctAnswersElement = document.getElementById("correctAnswers");
-    const incorrectAnswersElement = document.getElementById("incorrectAnswers");
-
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = timeInSeconds % 60;
-
-    timeTakenElement.textContent = `${minutes}:${
-      seconds < 10 ? "0" : ""
-    }${seconds}`;
-    questionsAnsweredElement.textContent = `${triviaData.length}/${triviaData.length}`;
-    correctAnswersElement.innerHTML = `<i class="fa-solid fa-check"></i>${correctAnswersCount}`;
-    incorrectAnswersElement.innerHTML = `<i class="fa-solid fa-xmark"></i>${incorrectAnswersCount}`;
-
-    endScreen.style.display = "flex";
-
-    const replayButton = document.getElementById("replayButton");
-    replayButton.addEventListener("click", function () {
-      endScreen.style.display = "none";
-      startScreen.style.display = "none";
-      quizContainer.style.display = "flex";
-      currentQuestionIndex = 0;
-      timeInSeconds = 0;
-      timerElement.textContent = "00:00";
-      userInput.value = "";
-      userInput.placeholder = "Pick your answer";
-      userInput.classList.remove("fade-out");
-      correctAnswersCount = 0;
-      incorrectAnswersCount = 0;
-      startTimer();
-      displayQuestion(currentQuestionIndex);
-    });
-
-    const changeQuizButton = document.getElementById("changeQuiz");
-    changeQuizButton.addEventListener("click", function () {
-      endScreen.style.display = "none";
-      startScreen.style.display = "flex";
-      quizContainer.style.display = "none";
-      currentQuestionIndex = 0;
-      timeInSeconds = 0;
-      timerElement.textContent = "00:00";
-      userInput.value = "";
-      userInput.placeholder = "Pick your answer";
-      userInput.classList.remove("fade-out");
-      correctAnswersCount = 0;
-      incorrectAnswersCount = 0;
-      stopTimer();
-    });
-  }
-
-  goBackButton.addEventListener("click", function () {
-    stopTimer();
-    startScreen.style.display = "flex";
-    quizContainer.style.display = "none";
-    currentQuestionIndex = 0;
-    triviaData = [];
-    timeInSeconds = 0;
-    timerElement.textContent = "00:00";
-  });
-
-  restartQuizButton.addEventListener("click", function () {
-    stopTimer();
-    userInput.placeholder = "Pick your answer";
-    userInput.value = "";
-    userInput.classList.remove("fade-out");
-
-    currentQuestionIndex = 0;
-    correctAnswersCount = 0;
-    incorrectAnswersCount = 0;
-    timeInSeconds = 0;
-    timerElement.textContent = "00:00";
-    displayQuestion(currentQuestionIndex);
-
-    startTimer();
-
-    alert("Quiz restarted!");
-  });
-
-  function fetchTrivia(category, difficulty, type, questionNumber) {
-    let apiUrl = `https://opentdb.com/api.php?amount=${questionNumber}&encode=url3986`;
-      if (category == "any") {
-      apiUrl
-    }else{
-      apiUrl += `&category=${category}`;
-    }
-
-    if (difficulty == "any") {
-      apiUrl
-    }else{
-      apiUrl += `&difficulty=${difficulty}`;
-    }
-
-
-    if (type == "any") {
-      apiUrl
-    }else{
-      apiUrl += `&type=${type}`;
-    }
-
-    console.log(apiUrl)
-
-    return fetch(apiUrl, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.response_code !== 0) {
-          console.error("Error in API response:", data);
-          throw new Error("Error in API response");
-        }
-
-        let randomizedQuestions = data.results.map((question) => {
-          question.question = decodeURIComponent(question.question);
-          question.answers = question.incorrect_answers
-            .concat(question.correct_answer)
-            .map(decodeURIComponent)
-            .sort(() => Math.random() - 0.5);
-
-          return question;
+          if (val === "forever" || val === "nan") {
+            // Handle "forever" or "NaN" input
+            e.target.value = val;
+          }
         });
 
-        // Randomize the order of questions
-        randomizedQuestions = randomizedQuestions.sort(() => Math.random() - 0.5);
+        function startTimer() {
+          const inputText = timeInput.value.trim().toLowerCase();
 
-        return randomizedQuestions;
-      })
-      .catch((error) => {
-        console.error("Error fetching trivia:", error);
-        throw error;
+          if (inputText === "forever") {
+            let elapsedTimeInSeconds = 0;
+
+            timer = setInterval(function () {
+              elapsedTimeInSeconds++;
+              const minutes = Math.floor(elapsedTimeInSeconds / 60);
+              const seconds = elapsedTimeInSeconds % 60;
+
+              // Update the timer element's text content
+              timerElement.textContent = `${minutes}:${
+                seconds < 10 ? "0" : ""
+              }${seconds}`;
+            }, 1000);
+
+            return;
+          } else if (inputText === "nan") {
+            timerElement.textContent = "NaN";
+            return;
+          }
+
+          const initialTime = parseInt(timeInput.value, 10);
+          if (!isNaN(initialTime)) {
+            timeInSeconds = initialTime * 60;
+          } else {
+            console.error(
+              "Invalid input for timeInput. Please enter a valid number, 'forever', or 'NaN'."
+            );
+            return;
+          }
+
+          timer = setInterval(function () {
+            timeInSeconds--;
+            if (timeInSeconds < 0) {
+              clearInterval(timer);
+              console.log("Timer expired!");
+              const endTitle = document.getElementById("endTitle");
+              endTitle.textContent = "Time's Up!";
+              displayEndScreen(); // Call the function when the timer reaches 0
+              return;
+            }
+
+            const minutes = Math.floor(timeInSeconds / 60);
+            const seconds = timeInSeconds % 60;
+
+            // Update the timer element's text content
+            timerElement.textContent = `${minutes}:${
+              seconds < 10 ? "0" : ""
+            }${seconds}`;
+          }, 1000);
+        }
+
+        function stopTimer() {
+          clearInterval(timer);
+        }
+
+        startButton.addEventListener("click", function () {
+          if (timeInput.value == "") {
+            timeInput.style.backgroundColor = "crimson";
+            setTimeout(function () {
+              timeInput.style.backgroundColor = ""; // Reset background color after 3 seconds
+            }, 3000);
+            return;
+          }
+          if (questionInput.value == "") {
+            questionInput.style.backgroundColor = "crimson";
+            setTimeout(function () {
+              questionInput.style.backgroundColor = ""; // Reset background color after 3 seconds
+            }, 3000);
+            return;
+          }
+
+          const selectedCategory = categorySelect.value;
+          const selectedDifficulty = difficultySelect.value;
+          const numberOfSelectedQuestions = questionInput.value;
+          selectedType = typeSelect.value.toLowerCase(); // Convert to lowercase
+
+          fetchTrivia(
+            selectedCategory,
+            selectedDifficulty,
+            selectedType,
+            numberOfSelectedQuestions
+          )
+            .then((trivia) => {
+              startScreen.style.display = "none";
+              quizContainer.style.display = "flex";
+              triviaData = trivia;
+              displayQuestion(currentQuestionIndex);
+              startTimer();
+            })
+            .catch((error) => {
+              console.error("Error fetching trivia:", error);
+            });
+        });
+
+        checkAnswerButton.addEventListener("click", function () {
+          const progressBar = document.querySelector(".progress-bar");
+
+          // Check if the user has provided an answer
+          if (!selectedAnswer && selectedType !== "type") {
+            alert("Please select or type an answer before proceeding.");
+            return; // Stop the function execution if no answer is provided
+          }
+
+          const correctAnswer = decodeURIComponent(
+            triviaData[currentQuestionIndex].correct_answer
+          ).toLowerCase();
+
+          if (correctAnswer.includes(selectedAnswer)) {
+            userInput.placeholder = `Correct! The answer was: ${decodeURIComponent(
+              correctAnswer
+            )}`;
+            correctAnswersCount++;
+            progressBar.style.backgroundColor = "rgba(168, 255, 156, 0.7)"; // Change progress bar color to green for correct answer with some transparency
+          } else {
+            userInput.placeholder = `Wrong! The correct answer is: ${decodeURIComponent(
+              correctAnswer
+            )}. Your answer was: ${selectedAnswer}`;
+            incorrectAnswersCount++;
+            progressBar.style.backgroundColor = "rgba(255, 156, 156, 0.7)"; // Change progress bar color to red for incorrect answer with some transparency
+          }
+
+          // Allow the transition to happen by adding a class
+          progressBar.classList.add("fade-background-color");
+
+          // Remove the class and set the background color after the transition is complete
+          setTimeout(function () {
+            progressBar.classList.remove("fade-background-color");
+            progressBar.style.backgroundColor = "var(--progress-bar-color)"; // Set it back to the original color
+          }, 1000);
+
+          currentQuestionIndex++;
+          selectedAnswer = ""; // Reset the selected answer
+          const selectedButton = document.querySelector(
+            ".option-button.selected"
+          );
+          if (selectedButton) {
+            selectedButton.classList.remove("selected");
+          }
+
+          // Disable the checkAnswerButton until the user provides a new answer
+          checkAnswerButton.disabled = true;
+
+          // Display the results immediately
+          displayResults();
+
+          // Introduce a delay before showing the next question or end screen
+          if (currentQuestionIndex < triviaData.length) {
+            displayQuestionWithDelay(currentQuestionIndex, 500); // Adjust the delay time as needed
+          } else {
+            stopTimer();
+            displayEndScreenWithDelay(700); // Adjust the delay time as needed
+          }
+        });
+
+        function displayResults() {
+          // Display results logic here
+          // You can use the same logic as in the original checkAnswerButton event listener
+          // to immediately update the UI with correct and incorrect answers
+        }
+
+        function displayQuestionWithDelay(questionIndex, delay) {
+          setTimeout(function () {
+            displayQuestion(questionIndex);
+          }, delay);
+        }
+
+        function displayEndScreenWithDelay(delay) {
+          setTimeout(function () {
+            displayEndScreen();
+          }, delay);
+        }
+
+        function displayQuestionWithDelay(questionIndex, delay) {
+          setTimeout(function () {
+            displayQuestion(questionIndex);
+          }, delay);
+        }
+
+        function displayEndScreenWithDelay(delay) {
+          setTimeout(function () {
+            displayEndScreen();
+          }, delay);
+        }
+
+        function displayEndScreen() {
+          quizContainer.style.display = "none";
+          const endScreen = document.querySelector(".end-screen");
+          const timeTakenElement = document.getElementById("timetaken");
+          const questionsAnsweredElement =
+            document.getElementById("questionsAnswered");
+          const correctAnswersElement =
+            document.getElementById("correctAnswers");
+          const incorrectAnswersElement =
+            document.getElementById("incorrectAnswers");
+
+          const minutes = Math.floor(timeInSeconds / 60);
+          const seconds = timeInSeconds % 60;
+
+          timeTakenElement.textContent = `${minutes}:${
+            seconds < 10 ? "0" : ""
+          }${seconds}`;
+          questionsAnsweredElement.textContent = `${triviaData.length}/${triviaData.length}`;
+          correctAnswersElement.innerHTML = `<i class="fa-solid fa-check"></i>${correctAnswersCount}`;
+          incorrectAnswersElement.innerHTML = `<i class="fa-solid fa-xmark"></i>${incorrectAnswersCount}`;
+
+          endScreen.style.display = "flex";
+
+          const replayButton = document.getElementById("replayButton");
+          replayButton.addEventListener("click", function () {
+            endScreen.style.display = "none";
+            startScreen.style.display = "none";
+            quizContainer.style.display = "flex";
+            currentQuestionIndex = 0;
+            timeInSeconds = 0;
+            timerElement.textContent = "00:00";
+            userInput.value = "";
+            userInput.placeholder = "Pick your answer";
+            userInput.classList.remove("fade-out");
+            correctAnswersCount = 0;
+            incorrectAnswersCount = 0;
+            startTimer();
+            displayQuestion(currentQuestionIndex);
+          });
+
+          const changeQuizButton = document.getElementById("changeQuiz");
+          changeQuizButton.addEventListener("click", function () {
+            endScreen.style.display = "none";
+            startScreen.style.display = "flex";
+            quizContainer.style.display = "none";
+            currentQuestionIndex = 0;
+            timeInSeconds = 0;
+            timerElement.textContent = "00:00";
+            userInput.value = "";
+            userInput.placeholder = "Pick your answer";
+            userInput.classList.remove("fade-out");
+            correctAnswersCount = 0;
+            incorrectAnswersCount = 0;
+            stopTimer();
+          });
+        }
+
+        goBackButton.addEventListener("click", function () {
+          stopTimer();
+          startScreen.style.display = "flex";
+          quizContainer.style.display = "none";
+          currentQuestionIndex = 0;
+          triviaData = [];
+          timeInSeconds = 0;
+          timerElement.textContent = "00:00";
+        });
+
+        restartQuizButton.addEventListener("click", function () {
+          stopTimer();
+          userInput.placeholder = "Pick your answer";
+          userInput.value = "";
+          userInput.classList.remove("fade-out");
+
+          currentQuestionIndex = 0;
+          correctAnswersCount = 0;
+          incorrectAnswersCount = 0;
+          timeInSeconds = 0;
+          timerElement.textContent = "00:00";
+          displayQuestion(currentQuestionIndex);
+
+          startTimer();
+
+          alert("Quiz restarted!");
+        });
+
+        function fetchTrivia(category, difficulty, type, questionNumber) {
+          let apiUrl = `https://opentdb.com/api.php?amount=${questionNumber}&encode=url3986`;
+          if (category == "any") {
+            apiUrl;
+          } else {
+            apiUrl += `&category=${category}`;
+          }
+
+          if (difficulty == "any") {
+            apiUrl;
+          } else {
+            apiUrl += `&difficulty=${difficulty}`;
+          }
+
+          if (type == "any") {
+            apiUrl;
+          } else {
+            apiUrl += `&type=${type}`;
+          }
+
+          console.log(apiUrl);
+
+          return fetch(apiUrl, {
+            method: "GET",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.response_code !== 0) {
+                console.error("Error in API response:", data);
+                throw new Error("Error in API response");
+              }
+
+              let randomizedQuestions = data.results.map((question) => {
+                question.question = decodeURIComponent(question.question);
+                question.answers = question.incorrect_answers
+                  .concat(question.correct_answer)
+                  .map(decodeURIComponent)
+                  .sort(() => Math.random() - 0.5);
+
+                return question;
+              });
+
+              // Randomize the order of questions
+              randomizedQuestions = randomizedQuestions.sort(
+                () => Math.random() - 0.5
+              );
+
+              return randomizedQuestions;
+            })
+            .catch((error) => {
+              console.error("Error fetching trivia:", error);
+              throw error;
+            });
+        }
+
+        function displayQuestion(questionIndex) {
+          const questionElement = document.getElementById("question");
+          const questionCounterElement =
+            document.getElementById("questionCounter");
+          const progressBar = document.querySelector(".progress-bar");
+          const optionsContainer = document.querySelector(".option-buttons");
+
+          optionsContainer.innerHTML = ""; // Clear previous options
+
+          if (triviaData.length > 0 && questionIndex < triviaData.length) {
+            const currentQuestion = triviaData[questionIndex];
+            questionElement.innerHTML = currentQuestion.question;
+            questionCounterElement.textContent = `${questionIndex + 1}/${
+              triviaData.length
+            }`;
+            userInput.value = "";
+
+            setTimeout(function () {
+              userInput.placeholder = "Pick your answer";
+            }, 4000);
+
+            const progressBarWidth =
+              ((questionIndex + 1) / triviaData.length) * 100;
+            progressBar.style.width = progressBarWidth + "%";
+
+            // Display options based on the selected type
+            if (currentQuestion.type === "multiple") {
+              displayMultipleChoiceOptions(currentQuestion);
+            } else if (currentQuestion.type === "boolean") {
+              displayTrueFalseOptions(currentQuestion);
+            } else if (currentQuestion.type === "type") {
+              displayInputField();
+            }
+          }
+        }
+
+        function displayMultipleChoiceOptions(question) {
+          const optionsContainer = document.querySelector(".option-buttons");
+
+          // Display multiple-choice options
+          question.answers.forEach((answer, index) => {
+            const optionButton = document.createElement("button");
+            optionButton.className = "option-button";
+            optionButton.textContent = answer;
+            optionButton.addEventListener("click", function () {
+              handleOptionClick(answer);
+            });
+            optionsContainer.appendChild(optionButton);
+          });
+        }
+
+        function displayTrueFalseOptions(question) {
+          const optionsContainer = document.querySelector(".option-buttons");
+
+          // Display True and False options
+          const trueButton = document.createElement("button");
+          trueButton.className = "option-button";
+          trueButton.textContent = "True";
+          trueButton.addEventListener("click", function () {
+            handleOptionClick("True");
+          });
+          optionsContainer.appendChild(trueButton);
+
+          const falseButton = document.createElement("button");
+          falseButton.className = "option-button";
+          falseButton.textContent = "False";
+          falseButton.addEventListener("click", function () {
+            handleOptionClick("False");
+          });
+          optionsContainer.appendChild(falseButton);
+        }
+
+        function displayInputField() {
+          const optionsContainer = document.querySelector(".option-buttons");
+
+          // Display input field for the user to type the answer
+          const inputField = document.createElement("input");
+          inputField.setAttribute("type", "text");
+          inputField.setAttribute("id", "userInput");
+          inputField.setAttribute("placeholder", "Pick your answer");
+          optionsContainer.appendChild(inputField);
+
+          const submitButton = document.createElement("button");
+          submitButton.className = "option-button";
+          submitButton.textContent = "Submit";
+          submitButton.addEventListener("click", function () {
+            const userAnswer = inputField.value.trim().toLowerCase();
+            handleOptionClick(userAnswer);
+          });
+          optionsContainer.appendChild(submitButton);
+        }
+
+        function handleOptionClick(userAnswer) {
+          // Convert userAnswer to lowercase
+          selectedAnswer = userAnswer.toLowerCase();
+
+          // Remove the active class from all buttons
+          const allOptionButtons = document.querySelectorAll(
+            ".option-buttons button"
+          );
+          allOptionButtons.forEach((button) => {
+            button.classList.remove("active");
+          });
+
+          // Optionally, you can provide some visual indication that the option is selected
+          // For example, you can add a class to the input field or submit button for styling
+          const inputField = document.getElementById("userInput");
+          const submitButton = document.querySelector(".option-button");
+
+          if (inputField) {
+            inputField.classList.add("selected");
+            // Set the input field value to the selected answer
+            inputField.value = selectedAnswer;
+          }
+
+          if (submitButton) {
+            submitButton.classList.add("selected");
+            // Enable the checkAnswerButton so the user can proceed
+            checkAnswerButton.disabled = false;
+          }
+
+          // Add the active class to the clicked button
+          const clickedButton = event.target;
+          if (clickedButton && clickedButton.tagName === "BUTTON") {
+            clickedButton.classList.add("active");
+          }
+        }
       });
-  }
-
-
-  function displayQuestion(questionIndex) {
-    const questionElement = document.getElementById("question");
-    const questionCounterElement = document.getElementById("questionCounter");
-    const progressBar = document.querySelector(".progress-bar");
-    const optionsContainer = document.querySelector(".option-buttons");
-
-    optionsContainer.innerHTML = ""; // Clear previous options
-
-    if (triviaData.length > 0 && questionIndex < triviaData.length) {
-      const currentQuestion = triviaData[questionIndex];
-      questionElement.innerHTML = currentQuestion.question;
-      questionCounterElement.textContent = `${questionIndex + 1}/${
-        triviaData.length
-      }`;
-      userInput.value = "";
-
-      setTimeout(function () {
-        userInput.placeholder = "Pick your answer";
-      }, 4000);
-
-      const progressBarWidth = ((questionIndex + 1) / triviaData.length) * 100;
-      progressBar.style.width = progressBarWidth + "%";
-
-      // Display options based on the selected type
-      if (currentQuestion.type === "multiple") {
-        displayMultipleChoiceOptions(currentQuestion);
-      } else if (currentQuestion.type === "boolean") {
-        displayTrueFalseOptions(currentQuestion);
-      } else if (currentQuestion.type === "type") {
-        displayInputField();
-      }
-    }
-  }
-
-  function displayMultipleChoiceOptions(question) {
-    const optionsContainer = document.querySelector(".option-buttons");
-
-    // Display multiple-choice options
-    question.answers.forEach((answer, index) => {
-      const optionButton = document.createElement("button");
-      optionButton.className = "option-button";
-      optionButton.textContent = answer;
-      optionButton.addEventListener("click", function () {
-        handleOptionClick(answer);
-      });
-      optionsContainer.appendChild(optionButton);
-    });
-  }
-
-  function displayTrueFalseOptions(question) {
-    const optionsContainer = document.querySelector(".option-buttons");
-
-    // Display True and False options
-    const trueButton = document.createElement("button");
-    trueButton.className = "option-button";
-    trueButton.textContent = "True";
-    trueButton.addEventListener("click", function () {
-      handleOptionClick("True");
-    });
-    optionsContainer.appendChild(trueButton);
-
-    const falseButton = document.createElement("button");
-    falseButton.className = "option-button";
-    falseButton.textContent = "False";
-    falseButton.addEventListener("click", function () {
-      handleOptionClick("False");
-    });
-    optionsContainer.appendChild(falseButton);
-  }
-
-  function displayInputField() {
-    const optionsContainer = document.querySelector(".option-buttons");
-
-    // Display input field for the user to type the answer
-    const inputField = document.createElement("input");
-    inputField.setAttribute("type", "text");
-    inputField.setAttribute("id", "userInput");
-    inputField.setAttribute("placeholder", "Pick your answer");
-    optionsContainer.appendChild(inputField);
-
-    const submitButton = document.createElement("button");
-    submitButton.className = "option-button";
-    submitButton.textContent = "Submit";
-    submitButton.addEventListener("click", function () {
-      const userAnswer = inputField.value.trim().toLowerCase();
-      handleOptionClick(userAnswer);
-    });
-    optionsContainer.appendChild(submitButton);
-  }
-
-  function handleOptionClick(userAnswer) {
-    // Convert userAnswer to lowercase
-    selectedAnswer = userAnswer.toLowerCase();
-
-    // Remove the active class from all buttons
-    const allOptionButtons = document.querySelectorAll(
-      ".option-buttons button"
-    );
-    allOptionButtons.forEach((button) => {
-      button.classList.remove("active");
-    });
-
-    // Optionally, you can provide some visual indication that the option is selected
-    // For example, you can add a class to the input field or submit button for styling
-    const inputField = document.getElementById("userInput");
-    const submitButton = document.querySelector(".option-button");
-
-    if (inputField) {
-      inputField.classList.add("selected");
-      // Set the input field value to the selected answer
-      inputField.value = selectedAnswer;
-    }
-
-    if (submitButton) {
-      submitButton.classList.add("selected");
-      // Enable the checkAnswerButton so the user can proceed
-      checkAnswerButton.disabled = false;
-    }
-
-    // Add the active class to the clicked button
-    const clickedButton = event.target;
-    if (clickedButton && clickedButton.tagName === "BUTTON") {
-      clickedButton.classList.add("active");
-    }
-  }
-});
-
     </script>
   </body>
 </html>

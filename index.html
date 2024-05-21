@@ -421,6 +421,11 @@
         background-color: transparent;
         width: 98%;
       }
+      .disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        background-color: crimson !important;
+      }
     </style>
     <div class="start-screen">
       <div class="quiz-control">
@@ -584,10 +589,25 @@
         let selectedType = "";
         let selectedAnswer = "";
 
+        function determineLengthOfInput() {
+          if (timeInput.value.length === 0) {
+            startButton.classList.add("disabled");
+          } else if (
+            timeInput.value.length !== 0 ||
+            timeInput.value.length > 0
+          ) {
+            startButton.classList.remove("disabled");
+          }
+        }
+
+        setInterval(() => {
+          determineLengthOfInput();
+        }, 0);
+
         timeInput.addEventListener("input", function (e) {
           const val = e.target.value.trim().toLowerCase();
 
-          if (val === "forever" || val === "nan") {
+          if (val === "forever" || val === NaN) {
             // Handle "forever" or "NaN" input
             e.target.value = val;
           }
@@ -611,8 +631,8 @@
             }, 1000);
 
             return;
-          } else if (inputText === "nan") {
-            timerElement.textContent = "NaN";
+          } else if (inputText === NaN) {
+            timerElement.textContent = NaN;
             return;
           }
 
@@ -633,7 +653,7 @@
               console.log("Timer expired!");
               const endTitle = document.getElementById("endTitle");
               endTitle.textContent = "Time's Up!";
-              displayEndScreen(); // Call the function when the timer reaches 0
+              displayEndScreen();
               return;
             }
 
@@ -826,13 +846,13 @@
             startScreen.style.display = "flex";
             quizContainer.style.display = "none";
             currentQuestionIndex = 0;
+            correctAnswersCount = 0;
+            incorrectAnswersCount = 0;
             timeInSeconds = 0;
             timerElement.textContent = "00:00";
             userInput.value = "";
             userInput.placeholder = "Pick your answer";
             userInput.classList.remove("fade-out");
-            correctAnswersCount = 0;
-            incorrectAnswersCount = 0;
             stopTimer();
           });
         }
@@ -842,6 +862,8 @@
           startScreen.style.display = "flex";
           quizContainer.style.display = "none";
           currentQuestionIndex = 0;
+          correctAnswersCount = 0;
+          incorrectAnswersCount = 0;
           triviaData = [];
           timeInSeconds = 0;
           timerElement.textContent = "00:00";
@@ -852,7 +874,6 @@
           userInput.placeholder = "Pick your answer";
           userInput.value = "";
           userInput.classList.remove("fade-out");
-
           currentQuestionIndex = 0;
           correctAnswersCount = 0;
           incorrectAnswersCount = 0;
@@ -884,8 +905,6 @@
           } else {
             apiUrl += `&type=${type}`;
           }
-
-          console.log(apiUrl);
 
           return fetch(apiUrl, {
             method: "GET",
@@ -927,7 +946,7 @@
           const progressBar = document.querySelector(".progress-bar");
           const optionsContainer = document.querySelector(".option-buttons");
 
-          optionsContainer.innerHTML = ""; // Clear previous options
+          optionsContainer.innerHTML = "";
 
           if (triviaData.length > 0 && questionIndex < triviaData.length) {
             const currentQuestion = triviaData[questionIndex];
@@ -959,7 +978,6 @@
         function displayMultipleChoiceOptions(question) {
           const optionsContainer = document.querySelector(".option-buttons");
 
-          // Display multiple-choice options
           question.answers.forEach((answer, index) => {
             const optionButton = document.createElement("button");
             optionButton.className = "option-button";
@@ -974,7 +992,6 @@
         function displayTrueFalseOptions(question) {
           const optionsContainer = document.querySelector(".option-buttons");
 
-          // Display True and False options
           const trueButton = document.createElement("button");
           trueButton.className = "option-button";
           trueButton.textContent = "True";
